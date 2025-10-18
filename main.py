@@ -1,111 +1,39 @@
-print('\nЗадача 1:')
-while True:
-    print('Число должно быть целым и больше 0')
-    try:
-        n = int(input('n='))
-    except ValueError:
-        print('Введите число!')
-    if n>0:break
-matrix2 = [1,0]
-for i in range(n*n):
-    matrix2.insert(-1,0)
-print(*matrix2)
-while matrix2[-1] != 1:
-    matrix2.pop(-1)
-    matrix2.insert(0,2)
-    print(*matrix2)
+import random
 
-print('\nЗадача 2:')
 while True:
     try:
-        n = int(input('n='))
-    except ValueError:
-        print('Введите число!')
-    if n>0:break
-matrix2 = []
-for i in range(n):
-    matrix2.append(n)
-    n-=1
-matrix2.append(0)
-b = 1
-print(*matrix2)
-while matrix2[0]!=0:
-    matrix2.pop(0)
-    matrix2.append(b)
-    b+=1
-    print(*matrix2)
-
-print('\nЗадача 3:')
+        perimeter = int(input("perimeter(20-min, 100-max): "))
+        if perimeter > 19 and perimeter < 101: break
+    except ValueError: pass
 while True:
-    print('Число должно быть целым и больше 0')
     try:
-        n = int(input('n='))
-    except ValueError:
-        print('Введите число!')
-    if n>0:break
-while True:
-    print('Число должно быть целым и больше 0')
-    try:
-        m = int(input('m='))
-    except ValueError:
-        print('Введите число!')
-    if m>0:break
-matrix2 = ['.','*','.','*','.','*']
-for i in range(n*m-1):
-    if matrix2[0] == '.':
-        matrix2.append('.')
-    else: matrix2.append('*')
-    matrix2.pop(0)
-    print(*matrix2)
+        max_islands = int(input("max number of islands(9-mux): "))
+        if max_islands < 10 and max_islands > 0: break
+    except ValueError: pass
 
-print('Задача 4:')
-while True:
-    print('Число должно быть не четным и целым и больше 2')
-    try:
-        n = int(input('n='))
-    except ValueError:
-        print('Введите число!')
-    if n%2!=0 and n>2:break
+islands = []
+islands_qty = random.randint(1, max_islands)
+for qty_enum in range(islands_qty):
+    island = {
+        'width': random.randint(5, perimeter//2),
+        'height': random.randint(5, perimeter//2),
+        'ascii': []
+    }
 
-matrix2 = []
-for i in range(n*n):
-    matrix2.append([])
-for i in range(n*n):
-    for i in range(n*n):
-        matrix2[i-1].append('.')
-matrix2[len(matrix2)//2] = []
-for i in range(n*n):
-    matrix2[len(matrix2)//2].append('*')
-for i in range(n*n):
-    for i in range(n*n):
-        matrix2[i][len(matrix2)//2]='*'
-for i in range(n*n):
-    for i in range(n*n):
-        matrix2[i][i]='*'
-        matrix2[i][-i-1] = '*'
-for i in range(len(matrix2)):
-    print(matrix2[i])
-    i+=1
+    for land_height_enum in range(island['height']):
+        island['ascii'].append([])
+        for land_width_enum in range(island['width']):
+            island['ascii'][land_height_enum].append('~')
 
-print('\nЗадача 5:')
-print('Я хз как это реализовать')
-
-print('\nЗадача 6:')
-while True:
-    ababa = input('a-нарисовать квадрат\n'
-          'b-нарисовать треугольник\n'
-          'c-нарисовать круг\n'
-          'd-выход\n\n')
-    if ababa == 'a':
-        print('*****\n'
-              '*   *\n'
-              '*****\n')
-    elif ababa == 'b':
-        print('  *\n'
-              ' * *\n'
-              '*****\n')
-    elif ababa == 'c':
-        print(' ***\n'
-              '*   *\n'
-              ' ***\n')
-    elif ababa == 'd': break
+    for land_height_enum in range(island['height']):
+        size_rnd = random.randint(island['width']//2, island['width']-2)
+        pos_rnd = random.randint(1, island['width'] - size_rnd-1)
+        for island_width_enum in range(island['width']):
+            for size_rnd_enum in range(size_rnd):
+                if land_height_enum != 0 and land_height_enum < island['height']-1:
+                    island['ascii'][land_height_enum].pop(pos_rnd+size_rnd_enum)
+                    island['ascii'][land_height_enum].insert(pos_rnd+size_rnd_enum, 'H')
+    islands.append(island)
+for island in islands:
+    for land_height_enum in range(island['height']):
+        print(*island['ascii'][land_height_enum])
