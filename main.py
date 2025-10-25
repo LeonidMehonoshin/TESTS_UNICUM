@@ -30,7 +30,7 @@ while True:
 print('\nЗадача 2\n')
 while True:
     try:
-        num = float(input('Введите любое число, чтобы определить пренадлежит ли оно отрезку [a,b]\n:'))
+        num = float(input('Введите любое число, чтобы определить принадлежит ли оно отрезку [a,b]\n:'))
         a = float(input('Число a\n:'))
         b = float(input('Число b\n:'))
         if a <= b: break
