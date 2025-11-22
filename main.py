@@ -111,9 +111,6 @@ def year_and_size_get(number_error, year):
 def id_get():
     tale_print()
     phone_num = email = ''
-    email_code = str(random.randint(0, 10))
-    phone_num_code = str(random.randint(0, 10))
-    user_code = -1
 
     while (
         not re.search(r'\D+.\D+', email)
@@ -123,7 +120,6 @@ def id_get():
         and not re.search(r'\D+.\d', email)
         and not re.search(r'\d+.\D', email)
     ): email = input('Email: ')
-    while user_code != email_code: user_code = input('Введите код, отправленный на почту (от 0 до 10): ')
 
     while (
             not re.search(r'\D\d+\D\d\d\d\D\d\d\d\D\d\d\D\d\d', phone_num)
@@ -133,7 +129,7 @@ def id_get():
             and not re.search(r'\d\D\d\d\d\D\d\d\d\D\d\d\D\d\d', phone_num)
             and not re.search(r'\d\d\d\d\d\d\d\d\d\d\d', phone_num)
     ): phone_num = input('Номер телефона: ')
-    while user_code != phone_num_code: user_code = input('Введите код, отправленный на номер (от 0 до 10): ')
+
     return phone_num, email
 def please_check(day, month, year, custom_options, size, years, email, phone_num, total, pizza_type_text):
     print(
@@ -145,7 +141,7 @@ def please_check(day, month, year, custom_options, size, years, email, phone_num
         f'\nГод рождения: {years}'
         f'\nEmail: {email}'
         f'\nНомер телефона: {phone_num}'
-        f'\nИТОГ: {total}$'
+        f'\nИТОГО: {total}$'
         '\n|| ||| ||||| ||||| ||| ||'
         f'\n........СПАСИБО ЗА ПОКУПКУ!.......'
         '\n  сеть пиццерий "Грустная пицца"'
@@ -219,10 +215,7 @@ async def thank_you():
         '#                          \\__/    #\n'
         '####################################\n'
     )
-async def main():
-    task1 = asyncio.create_task(goodbye_print())
-    task2 = asyncio.create_task(thank_you())
-    await task1
-    await task2
-goodbye_print()
-thank_you()
+loop = asyncio.get_event_loop()
+task1 = loop.create_task(goodbye_print())
+task2 = loop.create_task(thank_you())
+loop.run_until_complete(asyncio.wait([task1, task2]))
