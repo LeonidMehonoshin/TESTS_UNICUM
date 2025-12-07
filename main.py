@@ -1,47 +1,111 @@
-import random
+import random, time
+
+#0
+def test0():
+    n = 0
+    while not (1 <= n and n <= 1000):
+        try:
+            n = int(input())
+        except ValueError: print('Неверный тип данных!')
+    a = [random.randint(0, 10000) for i in range(n)]
+    b = 0
+    for i in range(n-1):
+        if a[i] * a[i+1] % 58 == 0: b += 1
+    return b
+
+def test1():
+    n = 0
+    while not (1 <= n and n <= 1000):
+        try:
+            n = int(input())
+        except ValueError: print('Неверный тип данных!')
+    a = [random.randint(0, 10000) for i in range(n)]
+    b = 0
+    for i in range(n-1):
+        if (a[i] * a[i+1] % 29 == 0 and
+            a[i] * a[i+1] % 2 == 0): b += 1
+    return b
+
+def test2():
+    n = 0
+    while not (1 <= n and n <= 1000):
+        try:
+            n = int(input())
+        except ValueError: print('Неверный тип данных!')
+    a = [random.randint(0, 10000) for i in range(n)]
+    b = 0
+    for i in range(n-1):
+        if a[i] % 58 == 0 and a[i+1] % 58 == 0: b += 1
+    return b
+
+start = time.time()
+print(f'test0: {test0()}')
+end = time.time()
+print(f'Время выполнения: {round(end - start, 2)}')
+
+start = time.time()
+print(f'test1: {test1()}')
+end = time.time()
+print(f'Время выполнения: {round(end - start, 2)}')
+
+start = time.time()
+print(f'test2: {test2()}')
+end = time.time()
+print(f'Время выполнения: {round(end - start, 2)}')
 
 #1
-n = int(input('\n1) Число n: '))
-result = ["четное" if _ % 2 == 0  else "нечетное" for _ in [random.randint(0,n) for i in range(n)]]
-print(result)
+def test0_0():
+    a = [[random.randint(0,2147483647), random.randint(0,2147483647)] for i in range(3)]
+    if a[0][0]+a[1][0]+a[2][0] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][0]}')
+    elif a[0][1]+a[1][0]+a[2][0] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][1], [1][0], a[2][0]}')
+    elif a[0][0]+a[1][1]+a[2][0] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][1], a[2][0]}')
+    elif a[0][0]+a[1][0]+a[2][1] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][1]}')
+    elif a[0][1]+a[1][1]+a[2][0] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][0]}')
+    elif a[0][1]+a[1][0]+a[2][1] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][0]}')
+    elif a[0][1]+a[1][0]+a[2][1] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][0]}')
+    elif a[0][1]+a[1][1]+a[2][1] == 2147483647:
+        print(f'Спсиок: {a}\n'
+              f'Выбранные числа: {a[0][0], [1][0], a[2][0]}')
+    else: print(0)
 
-#2
-print('\n2) 1-100')
-result = ["FizzBuzz" if i % 3 == 0 and i % 5 == 0 else "Fizz" if i % 3 == 0 else "Buzz" if i % 5 == 0 else i for i in range(1, 101)]
-print(result)
+def test0_1():
+    a = [[random.randint(0,2147483647), random.randint(0,2147483647)] for i in range(3)]
+    run = 1
+    for i in range(2):
+        for j in range(2):
+            for k in range(2):
+                if a[0][i] + a[1][j] + a[2][k] == 2147483647:
+                    print(f'Список: {a}\n'
+                          f'Выбранные числа: {a[0][i]}, {a[1][j]}, {a[2][k]}')
+                    run = 0
+                    break
+            if run == 0: break
+        if run == 0: break
+    if run == 1: print(0)
 
-#3
-n = int(input('\n3) Размер рандомного списка: '))
-result = [i if i > 10 else 0 for i in [random.randint(-_, _) for _ in range(n)]]
-print(result)
+print('test0_0')
+start = time.time()
+test0_0()
+end = time.time()
+print(f'Время выполнения: {round(end - start, 2)}')
 
-#4
-n = int(input('\n4) Число n: '))
-result = {i: "even" if i % 2 == 0 else "odd" for i in range(1, n + 1)}
-print(result)
 
-#5
-n = int(input('\n5) Размер рандомного списка: '))
-m = int(input('\n5) Максимальный размер строк: '))
-result = [5 if len(x) > 5 else len(x) for x in [str(random.randint(0, m+1)) for _ in range(m)]]
-print(result)
-
-#6
-n = input('\n6) Напишите исходный список через ', ' (запятая с пробелом): ')
-result = [0 if _ < 0 else _ for _ in [int(i) for i in n.split(', ')]]
-print(result)
-
-#7
-n = int(input('\n7) Размер рандомного списка: '))
-result = [n ** 0.5 if n >= 0 else 0 for n in [random.randint(-_, _) for _ in range(n)]]
-print(result)
-
-#8
-n = input('\n8) Напишите исходный список через ', ' (запятая с пробелом): ')
-result = [x**2 if x % 2 == 0 else x**3 for x in [int(_) for _ in n.split(', ')]]
-print(result)
-
-#9
-n = int(input('\n9) Размер рандомного списка: '))
-result = ["High" if x > 50 else "Medium" if x >=20 and x<=50 else "Low" for x in [random.randint(-_ // 2, _ // 2) if _ % 2 == 0 else random.randint(-_ // 2, _ // 2+1) for _ in range(n)]]
-print(result)
+print('test0_1')
+start = time.time()
+test0_1()
+end = time.time()
+print(f'Время выполнения: {round(end - start, 2)}')
